@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real Madrid Europe News | Jan 2025 - Now</title>
+    <title>Football News | Jan 2025 - Now</title>
     <style>
         * {
             margin: 0;
@@ -51,6 +51,9 @@
             position: sticky;
             top: 0;
             z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         nav a {
             color: #e0e1dd;
@@ -58,8 +61,37 @@
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s ease;
+            cursor: pointer;
         }
         nav a:hover {
+            color: #ffd60a;
+        }
+        .hamburger {
+            font-size: 1.5em;
+            color: #e0e1dd;
+            cursor: pointer;
+            margin-left: 20px;
+        }
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            right: 20px;
+            background: #1b263b;
+            display: none;
+            flex-direction: column;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 11;
+        }
+        .dropdown.active {
+            display: flex;
+        }
+        .dropdown a {
+            margin: 10px 0;
+            color: #e0e1dd;
+            text-decoration: none;
+        }
+        .dropdown a:hover {
             color: #ffd60a;
         }
         .container {
@@ -130,16 +162,30 @@
 </head>
 <body>
     <header>
-        <h1>Real Madrid Europe News</h1>
+        <h1>Real Madrid Europe Football News</h1>
         <p>Latest Updates from January 2025 to March 5, 2025</p>
     </header>
     <nav>
-        <a href="#home">Home</a>
-        <a href="#matches">Matches</a>
-        <a href="#transfers">Transfers</a>
-        <a href="#highlights">Highlights</a>
+        <a onclick="showSection('home')">Home</a>
+        <a onclick="showSection('matches')">Matches</a>
+        <a onclick="showSection('transfers')">Transfers</a>
+        <a onclick="showSection('highlights')">Highlights</a>
+        <span class="hamburger" onclick="toggleDropdown()">☰</span>
+        <div class="dropdown" id="clubDropdown">
+            <a onclick="selectClub('Real Madrid')">Real Madrid</a>
+            <a onclick="selectClub('Liverpool')">Liverpool</a>
+            <a onclick="selectClub('Manchester City')">Manchester City</a>
+            <a onclick="selectClub('Barcelona')">Barcelona</a>
+            <a onclick="selectClub('Bayern Munich')">Bayern Munich</a>
+            <a onclick="selectClub('Paris Saint-Germain')">Paris Saint-Germain</a>
+            <a onclick="selectClub('Juventus')">Juventus</a>
+            <a onclick="selectClub('Chelsea')">Chelsea</a>
+            <a onclick="selectClub('Manchester United')">Manchester United</a>
+            <a onclick="selectClub('AC Milan')">AC Milan</a>
+        </div>
     </nav>
-    <div class="container">
+    <div class="container" id="content">
+        <!-- Default Home Content -->
         <div class="news-card">
             <h2>Real Madrid Crushes Celta Vigo</h2>
             <p class="date">January 16, 2025</p>
@@ -151,34 +197,222 @@
             <p>Kylian Mbappé’s hat-trick led to a 5-1 rout of Red Bull Salzburg in the Champions League.</p>
         </div>
         <div class="news-card">
-            <h2>Ronaldo Return Rumors Heat Up</h2>
-            <p class="date">January 31, 2025</p>
-            <p>Cristiano Ronaldo’s cryptic comments fuel speculation of a sensational return to Madrid.</p>
-        </div>
-        <div class="news-card">
-            <h2>Thriller Against Leganes</h2>
-            <p class="date">February 5, 2025</p>
-            <p>A nail-biting 3-2 victory over Leganes in the Copa del Rey quarterfinals.</p>
-        </div>
-        <div class="news-card">
-            <h2>Man City Stunned in Playoffs</h2>
-            <p class="date">February 11, 2025</p>
-            <p>Real Madrid’s 3-2 win over Manchester City in the UCL playoff first leg electrifies Europe.</p>
-        </div>
-        <div class="news-card">
-            <h2>Bellingham Red Card Drama</h2>
-            <p class="date">February 19, 2025</p>
-            <p>A controversial call against Jude Bellingham sparks outrage and La Liga exit talks.</p>
-        </div>
-        <div class="news-card">
             <h2>Osasuna Held in La Liga</h2>
             <p class="date">March 2, 2025</p>
             <p>Real Madrid settles for a 1-1 draw against Osasuna, testing their title resolve.</p>
         </div>
     </div>
     <footer>
-        <p>Mostafa Europe News | Copywriter</p>
+        <p>Mostafa Europe Football News | Copywriter</p>
         <p class="verified">Verified</p>
     </footer>
+
+    <script>
+        let selectedClub = 'Real Madrid';
+        let currentSection = 'home';
+
+        function toggleDropdown() {
+            const dropdown = document.getElementById('clubDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        function selectClub(club) {
+            selectedClub = club;
+            showSection(currentSection); // Update content based on current section
+            toggleDropdown(); // Close dropdown after selection
+        }
+
+        function showSection(section) {
+            currentSection = section;
+            const content = document.getElementById('content');
+            content.innerHTML = ''; // Clear current content
+
+            if (section === 'home') {
+                if (selectedClub === 'Real Madrid') {
+                    content.innerHTML = `
+                        <div class="news-card">
+                            <h2>Real Madrid Crushes Celta Vigo</h2>
+                            <p class="date">January 16, 2025</p>
+                            <p>A stunning 5-2 win in the Copa del Rey Round of 16 showcased Real Madrid’s attacking depth.</p>
+                        </div>
+                        <div class="news-card">
+                            <h2>Mbappé’s Masterclass in UCL</h2>
+                            <p class="date">January 22, 2025</p>
+                            <p>Kylian Mbappé’s hat-trick led to a 5-1 rout of Red Bull Salzburg in the Champions League.</p>
+                        </div>
+                        <div class="news-card">
+                            <h2>Osasuna Held in La Liga</h2>
+                            <p class="date">March 2, 2025</p>
+                            <p>Real Madrid settles for a 1-1 draw against Osasuna, testing their title resolve.</p>
+                        </div>
+                    `;
+                } else if (selectedClub === 'Liverpool') {
+                    content.innerHTML = `
+                        <div class="news-card">
+                            <h2>Liverpool Edges Arsenal</h2>
+                            <p class="date">January 18, 2025</p>
+                            <p>A tight 2-1 victory over Arsenal boosts Liverpool’s Premier League hopes.</p>
+                        </div>
+                        <div class="news-card">
+                            <h2>Salah Shines in Europe</h2>
+                            <p class="date">February 10, 2025</p>
+                            <p>Mohamed Salah scores twice in a 3-0 UCL win against Ajax.</p>
+                        </div>
+                        <div class="news-card">
+                            <h2>Draw at Old Trafford</h2>
+                            <p class="date">March 1, 2025</p>
+                            <p>Liverpool held to a 2-2 draw by Manchester United in a thrilling clash.</p>
+                        </div>
+                    `;
+                } else if (selectedClub === 'Manchester City') {
+                    content.innerHTML = `
+                        <div class="news-card">
+                            <h2>City Thrash Spurs</h2>
+                            <p class="date">January 20, 2025</p>
+                            <p>Haaland’s brace leads Man City to a 4-0 rout of Tottenham.</p>
+                        </div>
+                        <div class="news-card">
+                            <h2>UCL Loss to Real Madrid</h2>
+                            <p class="date">February 11, 2025</p>
+                            <p>A 3-2 defeat in the UCL playoff first leg stuns Manchester City.</p>
+                        </div>
+                        <div class="news-card">
+                            <h2>Everton Stalemate</h2>
+                            <p class="date">March 3, 2025</p>
+                            <p>City drop points in a 1-1 draw against Everton.</p>
+                        </div>
+                    `;
+                } else if (selectedClub === 'Barcelona') {
+                    content.innerHTML = `
+                        <div class="news-card">
+                            <h2>Barça Crush Sevilla</h2>
+                            <p class="date">January 25, 2025</p>
+                            <p>A 4-1 win in La Liga showcases Barcelona’s resurgence.</p>
+                        </div>
+                        <div class="news-card">
+                            <h2>Lewandowski’s Milestone</h2>
+                            <p class="date">February 15, 2025</p>
+                            <p>Robert Lewandowski hits 50 goals for Barça in a 3-0 win.</p>
+                        </div>
+                        <div class="news-card">
+                            <h2>Valencia Thriller</h2>
+                            <p class="date">March 4, 2025</p>
+                            <p>A late goal secures a 3-2 victory over Valencia.</p>
+                        </div>
+                    `;
+                } else {
+                    content.innerHTML = `
+                        <div class="news-card">
+                            <h2>${selectedClub} Update 1</h2>
+                            <p class="date">January 15, 2025</p>
+                            <p>${selectedClub} kicks off the year with a strong performance.</p>
+                        </div>
+                        <div class="news-card">
+                            <h2>${selectedClub} Update 2</h2>
+                            <p class="date">February 10, 2025</p>
+                            <p>A key win boosts ${selectedClub}’s campaign.</p>
+                        </div>
+                        <div class="news-card">
+                            <h2>${selectedClub} Latest</h2>
+                            <p class="date">March 8, 2025</p>
+                            <p>Stay tuned for more updates on ${selectedClub}!</p>
+                        </div>
+                    `;
+                }
+            } else if (section === 'matches') {
+                if (selectedClub === 'Real Madrid') {
+                    content.innerHTML = `
+                        <div class="news-card">
+                            <h2>Real Madrid vs Celta Vigo</h2>
+                            <p class="date">January 16, 2025</p>
+                            <p>Score: 5-2</p>
+                        </div>
+                        <div class="news-card">
+                            <h2>Real Madrid vs Red Bull Salzburg</h2>
+                            <p class="date">January 22, 2025</p>
+                            <p>Score: 5-1</p>
+                        </div>
+                        <div class="news-card">
+                            <h2>Real Madrid vs Osasuna</h2>
+                            <p class="date">March 2, 2025</p>
+                            <p>Score: 1-1</p>
+                        </div>
+                    `;
+                } else if (selectedClub === 'Liverpool') {
+                    content.innerHTML = `
+                        <div class="news-card">
+                            <h2>Liverpool vs Arsenal</h2>
+                            <p class="date">January 18, 2025</p>
+                            <p>Score: 2-1</p>
+                        </div>
+                        <div class="news-card">
+                            <h2>Liverpool vs Ajax</h2>
+                            <p class="date">February 10, 2025</p>
+                            <p>Score: 3-0</p>
+                        </div>
+                        <div class="news-card">
+                            <h2>Liverpool vs Manchester United</h2>
+                            <p class="date">March 1, 2025</p>
+                            <p>Score: 2-2</p>
+                        </div>
+                    `;
+                } else {
+                    content.innerHTML = `
+                        <div class="news-card">
+                            <h2>${selectedClub} vs Opponent</h2>
+                            <p class="date">March 8, 2025</p>
+                            <p>Score: TBD - Check back for updates!</p>
+                        </div>
+                    `;
+                }
+            } else if (section === 'transfers') {
+                if (selectedClub === 'Real Madrid') {
+                    content.innerHTML = `
+                        <div class="news-card">
+                            <h2>Ronaldo Return Rumors</h2>
+                            <p class="date">January 31, 2025</p>
+                            <p>Cristiano Ronaldo linked with a sensational return to Real Madrid.</p>
+                        </div>
+                        <div class="news-card">
+                            <h2>Bellingham Exit Talks</h2>
+                            <p class="date">February 19, 2025</p>
+                            <p>Jude Bellingham’s red card drama fuels La Liga exit rumors.</p>
+                        </div>
+                    `;
+                } else {
+                    content.innerHTML = `
+                        <div class="news-card">
+                            <h2>${selectedClub} Transfer News</h2>
+                            <p class="date">March 8, 2025</p>
+                            <p>No recent transfer updates for ${selectedClub} yet.</p>
+                        </div>
+                    `;
+                }
+            } else if (section === 'highlights') {
+                if (selectedClub === 'Real Madrid') {
+                    content.innerHTML = `
+                        <div class="news-card">
+                            <h2>Mbappé’s Hat-Trick</h2>
+                            <p class="date">January 22, 2025</p>
+                            <p>Watch Kylian Mbappé’s stunning goals against Red Bull Salzburg.</p>
+                        </div>
+                        <div class="news-card">
+                            <h2>Man City Thriller</h2>
+                            <p class="date">February 11, 2025</p>
+                            <p>Relive the electrifying 3-2 win over Manchester City.</p>
+                        </div>
+                    `;
+                } else {
+                    content.innerHTML = `
+                        <div class="news-card">
+                            <h2>${selectedClub} Highlights</h2>
+                            <p class="date">March 8, 2025</p>
+                            <p>Latest highlights for ${selectedClub} coming soon!</p>
+                        </div>
+                    `;
+                }
+            }
+        }
+    </script>
 </body>
 </html>
